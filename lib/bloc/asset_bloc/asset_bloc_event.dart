@@ -25,10 +25,10 @@ class AssetFetch extends AssetBlocEvent {
 }
 
 class AssetDelete extends AssetBlocEvent {
-  final int id;
-  const AssetDelete(this.id);
+  final Asset asset;
+  const AssetDelete(this.asset);
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [asset];
 }
 
 class AssetUpdate extends AssetBlocEvent {

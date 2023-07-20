@@ -171,96 +171,79 @@ class _AssetsPageState extends State<AssetsPage> {
                         } else if (state is AssetBlocError) {
                           return Center(
                             child: Text(
-                              state.error,
+                              "${state.error} + dwdw",
                               style: kSubtitleRegularTextStyle,
                             ),
                           );
                         } else if (state is AssetBlocFetched) {
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            padding: kEdgeInsetsAllNormal,
-                            itemCount: state.asset.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return state.asset.isNotEmpty
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => ViewAssetPage(
-                                              asset: state.asset[index],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Column(
-                                        children: [
-                                          verticalSpaceSmall,
-                                          Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
+                          if (state.asset.isNotEmpty) {
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              padding: kEdgeInsetsAllNormal,
+                              itemCount: state.asset.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ViewAssetPage(
+                                          asset: state.asset[index],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Column(
+                                    children: [
+                                      verticalSpaceSmall,
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height *
                                                 0.11,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            padding: kEdgeInsetsAllSmall,
-                                            decoration: BoxDecoration(
-                                              color: index.isEven
-                                                  ? kTertiaryColor5
-                                                  : kWhiteColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              // color: Colors.white,
-                                              boxShadow: const [
-                                                BoxShadow(
-                                                  blurRadius: 15,
-                                                  offset: Offset(1, 1),
-                                                  color: Colors.grey,
-                                                ),
-                                                BoxShadow(
-                                                  blurRadius: 15,
-                                                  offset: Offset(-5, -5),
-                                                  color: Colors.white,
-                                                ),
-                                              ],
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        padding: kEdgeInsetsAllSmall,
+                                        decoration: BoxDecoration(
+                                          color: index.isEven
+                                              ? kTertiaryColor5
+                                              : kWhiteColor,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          // color: Colors.white,
+                                          boxShadow: const [
+                                            BoxShadow(
+                                              blurRadius: 15,
+                                              offset: Offset(1, 1),
+                                              color: Colors.grey,
                                             ),
-                                            child: Column(
+                                            BoxShadow(
+                                              blurRadius: 15,
+                                              offset: Offset(-5, -5),
+                                              color: Colors.white,
+                                            ),
+                                          ],
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
                                                 Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
                                                   children: [
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          "${index + 1} . ",
-                                                          style:
-                                                              kSubtitleTextStyle
-                                                                  .copyWith(
-                                                            color:
-                                                                kSecondaryColor,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          state.asset[index]
-                                                              .equipmenttype
-                                                              .toString()
-                                                              .toUpperCase(),
-                                                          style: kSubtitleTextStyle
-                                                              .copyWith(
-                                                                  color:
-                                                                      kSecondaryColor),
-                                                        ),
-                                                      ],
+                                                    Text(
+                                                      "${index + 1} . ",
+                                                      style: kSubtitleTextStyle
+                                                          .copyWith(
+                                                        color: kSecondaryColor,
+                                                      ),
                                                     ),
                                                     Text(
                                                       state.asset[index]
-                                                          .serialnumber
+                                                          .equipmenttype
                                                           .toString()
                                                           .toUpperCase(),
                                                       style: kSubtitleTextStyle
@@ -268,98 +251,107 @@ class _AssetsPageState extends State<AssetsPage> {
                                                               color:
                                                                   kSecondaryColor),
                                                     ),
-                                                    Container(
-                                                      padding:
-                                                          kEdgeInsetsAllTiny,
-                                                      decoration: BoxDecoration(
-                                                        color: index.isEven
-                                                            ? kWhiteColor
-                                                            : kTertiaryColor5,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5),
-                                                      ),
-                                                      child: Text(
-                                                        state.asset[index]
-                                                            .suppliedto
-                                                            .toString()
-                                                            .toUpperCase(),
-                                                        style: kHeading3TextStyle
-                                                            .copyWith(
-                                                                color:
-                                                                    kSecondaryColor),
-                                                      ),
-                                                    ),
                                                   ],
                                                 ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Flexible(
-                                                      child: SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.4,
-                                                        child: Text(
-                                                          state.asset[index]
-                                                              .supplier
-                                                              .toString(),
-                                                          // .toUpperCase(),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style:
-                                                              kSubtitleTextStyle
-                                                                  .copyWith(
+                                                Text(
+                                                  state
+                                                      .asset[index].serialnumber
+                                                      .toString()
+                                                      .toUpperCase(),
+                                                  style: kSubtitleTextStyle
+                                                      .copyWith(
+                                                          color:
+                                                              kSecondaryColor),
+                                                ),
+                                                Container(
+                                                  padding: kEdgeInsetsAllTiny,
+                                                  decoration: BoxDecoration(
+                                                    color: index.isEven
+                                                        ? kWhiteColor
+                                                        : kTertiaryColor5,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                  ),
+                                                  child: Text(
+                                                    state
+                                                        .asset[index].suppliedto
+                                                        .toString()
+                                                        .toUpperCase(),
+                                                    style: kHeading3TextStyle
+                                                        .copyWith(
                                                             color:
-                                                                kSecondaryColor,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Flexible(
-                                                      child: SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.5,
-                                                        child: Text(
-                                                          "expired : ${state.asset[index].warrantyexpired}",
-                                                          // .toUpperCase(),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          textAlign:
-                                                              TextAlign.right,
-                                                          style: kSubtitleTextStyle
-                                                              .copyWith(
-                                                                  color:
-                                                                      kSecondaryColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                                kSecondaryColor),
+                                                  ),
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                          verticalSpaceSmall
-                                        ],
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Flexible(
+                                                  child: SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.4,
+                                                    child: Text(
+                                                      state
+                                                          .asset[index].supplier
+                                                          .toString(),
+                                                      // .toUpperCase(),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: kSubtitleTextStyle
+                                                          .copyWith(
+                                                        color: kSecondaryColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  child: SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.5,
+                                                    child: Text(
+                                                      "expired : ${state.asset[index].warrantyexpired}",
+                                                      // .toUpperCase(),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      textAlign:
+                                                          TextAlign.right,
+                                                      style: kSubtitleTextStyle
+                                                          .copyWith(
+                                                              color:
+                                                                  kSecondaryColor),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    )
-                                  : const Center(child: Text("No Asset Found"));
-                            },
-                          );
-                        } else if (state is AssetBlocError) {
-                          return Center(
-                            child: Text(
-                              state.error,
-                              style: kSubtitleRegularTextStyle,
-                            ),
-                          );
+                                      verticalSpaceSmall
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          } else {
+                            return Center(
+                              child: Text(
+                                "No Asset Found",
+                                style: kSubtitleRegularTextStyle,
+                              ),
+                            );
+                          }
                         } else {
                           return Center(
                             child: Text(

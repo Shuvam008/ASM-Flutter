@@ -1,6 +1,7 @@
 import 'package:assetmng/bloc/home_bloc/bloc/home_bloc.dart';
 import 'package:assetmng/bloc/service_request_bloc/service_request_bloc.dart';
 import 'package:assetmng/model/asset_model.dart';
+import 'package:assetmng/screens/assets/assetsPage.dart';
 import 'package:assetmng/screens/assets/updateAssetPage.dart';
 import 'package:assetmng/widget/CustomAppBar.dart';
 import 'package:assetmng/widget/side_menu.dart';
@@ -165,7 +166,7 @@ class _ViewAssetPageState extends State<ViewAssetPage> {
                                   onPressed: () {
                                     context
                                         .read<AssetBloc>()
-                                        .add(AssetDelete(widget.asset.id));
+                                        .add(AssetDelete(widget.asset));
                                   },
                                   child: const Text('Delete'),
                                 ),
@@ -202,6 +203,9 @@ class _ViewAssetPageState extends State<ViewAssetPage> {
                                       locationapprovedate: "",
                                       locationapprovetime: "",
                                     );
+                                    // context
+                                    //     .read<ServiceRequestBloc>()
+                                    //     .add(ServiceRequestEventFetch(role, rolecode));
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -239,7 +243,12 @@ class _ViewAssetPageState extends State<ViewAssetPage> {
                               fontSize: 12.0,
                             );
                             print("Asset Deleted successfully ");
-                            Navigator.pushNamed(context, '/asset');
+                            // Navigator.pushNamed(context, '/asset');
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const AssetsPage()),
+                            );
                           }
                         },
                         child: const SizedBox(),

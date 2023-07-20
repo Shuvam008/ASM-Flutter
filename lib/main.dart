@@ -79,7 +79,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: kWhiteColor,
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-            .apply(bodyColor: Colors.white),
+            .apply(bodyColor: Color.fromARGB(255, 119, 117, 117)),
         canvasColor: kTertiaryColor5,
       ),
       home: BlocBuilder<AuthBloc, AuthBlocState>(

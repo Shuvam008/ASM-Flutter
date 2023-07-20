@@ -52,3 +52,8 @@ class ServiceRequestUpdate extends ServiceRequestState {
   @override
   List<Object> get props => [];
 }
+
+class ServiceRequestClosed extends ServiceRequestState {
+  @override
+  List<Object> get props => [];
+}

@@ -4,6 +4,7 @@ import 'package:assetmng/bloc/home_bloc/bloc/home_bloc.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 
 import '../../bloc/auth_bloc/auth_bloc.dart';
+import '../../bloc/service_request_bloc/service_request_bloc.dart';
 import '../../shared/colors.dart';
 import '../../shared/text_styles.dart';
 import '../../utils/index.dart';
@@ -45,6 +46,8 @@ class _HomePageState extends State<HomePage> {
                   child: Text(state.apiErroe),
                 );
               } else if (state is HomeBlocFetchedState) {
+                context.read<ServiceRequestBloc>().add(ServiceRequestEventFetch(
+                    state.user.role, state.user.locationcode));
                 return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

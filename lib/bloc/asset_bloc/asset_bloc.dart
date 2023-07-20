@@ -52,8 +52,12 @@ class AssetBloc extends Bloc<AssetBlocEvent, AssetBlocState> {
     });
     on<AssetDelete>((event, emit) async {
       try {
-        await AssetApi.DeleteAssets(event.id).then((value) {
-          if (value == 'successfullyDeleteAsset') {
+        await AssetApi.UpdateAssets(
+          event.asset.copyWith(
+            isActive: false,
+          ),
+        ).then((value) {
+          if (value == 'successfullyUpdateAsset') {
             emit(AssetBlocDeleted());
             print("Delete successfully");
           } else {

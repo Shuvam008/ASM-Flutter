@@ -7,7 +7,7 @@ class AssetApi {
   static const apiUrl = 'http://192.168.1.11:8080/assets';
   // static const apiUrl = 'http://localhost:8080/assets';
 
-  static Future<List<Asset>?> getAssets(String role, String rolecode) async {
+  static Future<List<Asset>> getAssets(String role, String rolecode) async {
     var response = await http.get(Uri.parse(apiUrl));
 
     if (response.statusCode == 200) {
@@ -16,33 +16,41 @@ class AssetApi {
       List<Asset> assets =
           jsonList.map((json) => Asset.fromJson(json)).toList();
 
+      List<Asset> visibleAssets = [];
+      for (var element in assets) {
+        if (element.isActive) {
+          visibleAssets.add(element);
+        }
+      }
       if (role == "admin" || role == "subAdmin") {
-        return assets;
+        return visibleAssets;
       } else if (role == "location") {
         List<Asset> assetsLocation = [];
-        for (var i = 0; i < assets.length; i++) {
-          if (assets[i].suppliedto.toLowerCase() == rolecode.toLowerCase()) {
-            assetsLocation.add(assets[i]);
+        for (var i = 0; i < visibleAssets.length; i++) {
+          if (visibleAssets[i].suppliedto.toLowerCase() ==
+              rolecode.toLowerCase()) {
+            assetsLocation.add(visibleAssets[i]);
           }
         }
         if (assetsLocation.isNotEmpty) {
           return assetsLocation;
         }
-        return null;
+        return [];
       } else {
         List<Asset> assetsVendor = [];
-        for (var i = 0; i < assets.length; i++) {
-          if (assets[i].supplier.toLowerCase() == rolecode.toLowerCase()) {
-            assetsVendor.add(assets[i]);
+        for (var i = 0; i < visibleAssets.length; i++) {
+          if (visibleAssets[i].supplier.toLowerCase() ==
+              rolecode.toLowerCase()) {
+            assetsVendor.add(visibleAssets[i]);
           }
         }
         if (assetsVendor.isNotEmpty) {
           return assetsVendor;
         }
-        return null;
+        return [];
       }
     } else {
-      return null;
+      return [];
     }
   }
 

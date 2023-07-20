@@ -4,6 +4,7 @@ import 'package:assetmng/bloc/home_bloc/bloc/home_bloc.dart';
 import 'package:assetmng/bloc/service_request_bloc/service_request_bloc.dart';
 import 'package:assetmng/bloc/user_bloc/user_bloc.dart';
 import 'package:assetmng/model/service_model.dart';
+import 'package:assetmng/screens/ServiceRequest/CloseRequestPage.dart';
 import 'package:assetmng/screens/ServiceRequest/ViewServiceRequestPage.dart';
 import 'package:assetmng/screens/assets/viewAssetPage.dart';
 import 'package:assetmng/screens/locationUser/viewLocationUserPage.dart';
@@ -29,11 +30,6 @@ class ServiceRequestPage extends StatefulWidget {
 }
 
 class _ServiceRequestPageState extends State<ServiceRequestPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     // Get current date
@@ -188,331 +184,345 @@ class _ServiceRequestPageState extends State<ServiceRequestPage> {
                             ],
                           );
                         } else if (state is ServiceRequestFetched) {
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            padding: kEdgeInsetsAllNormal,
-                            itemCount: state.service.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return state.service.isNotEmpty
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ViewServiceRequestPage(
-                                              service: state.service[index],
+                          if (state.service.isNotEmpty) {
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              padding: kEdgeInsetsAllNormal,
+                              itemCount: state.service.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return state.service.isNotEmpty
+                                    ? GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ViewServiceRequestPage(
+                                                service: state.service[index],
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      },
-                                      child: Column(
-                                        children: [
-                                          verticalSpaceSmall,
-                                          Container(
-                                            // height: MediaQuery.of(context)
-                                            //         .size
-                                            //         .height *
-                                            //     0.11,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            padding: kEdgeInsetsAllSmall,
-                                            decoration: BoxDecoration(
-                                              color: index.isEven
-                                                  ? kTertiaryColor5
-                                                  : kWhiteColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              // color: Colors.white,
-                                              boxShadow: const [
-                                                BoxShadow(
-                                                  blurRadius: 15,
-                                                  offset: Offset(1, 1),
-                                                  color: Colors.grey,
-                                                ),
-                                                BoxShadow(
-                                                  blurRadius: 15,
-                                                  offset: Offset(-5, -5),
-                                                  color: Colors.white,
-                                                ),
-                                              ],
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          "${index + 1} . ",
-                                                          style:
-                                                              kSubtitleTextStyle
-                                                                  .copyWith(
-                                                            color:
-                                                                kSecondaryColor,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          state.service[index]
-                                                              .equipmenttype
-                                                              .toString()
-                                                              .toUpperCase(),
-                                                          style: kSubtitleTextStyle
-                                                              .copyWith(
-                                                                  color:
-                                                                      kSecondaryColor),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Text(
-                                                      state.service[index]
-                                                          .serialnumber
-                                                          .toString()
-                                                          .toUpperCase(),
-                                                      style: kSubtitleTextStyle
-                                                          .copyWith(
+                                          );
+                                        },
+                                        child: Column(
+                                          children: [
+                                            verticalSpaceSmall,
+                                            Container(
+                                              // height: MediaQuery.of(context)
+                                              //         .size
+                                              //         .height *
+                                              //     0.11,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              padding: kEdgeInsetsAllSmall,
+                                              decoration: BoxDecoration(
+                                                color: index.isEven
+                                                    ? kTertiaryColor5
+                                                    : kWhiteColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                // color: Colors.white,
+                                                boxShadow: const [
+                                                  BoxShadow(
+                                                    blurRadius: 15,
+                                                    offset: Offset(1, 1),
+                                                    color: Colors.grey,
+                                                  ),
+                                                  BoxShadow(
+                                                    blurRadius: 15,
+                                                    offset: Offset(-5, -5),
+                                                    color: Colors.white,
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            "${index + 1} . ",
+                                                            style:
+                                                                kSubtitleTextStyle
+                                                                    .copyWith(
                                                               color:
-                                                                  kSecondaryColor),
-                                                    ),
-                                                    Container(
-                                                      padding:
-                                                          kEdgeInsetsAllTiny,
-                                                      decoration: BoxDecoration(
-                                                        color: index.isEven
-                                                            ? kWhiteColor
-                                                            : kTertiaryColor5,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5),
+                                                                  kSecondaryColor,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            state.service[index]
+                                                                .equipmenttype
+                                                                .toString()
+                                                                .toUpperCase(),
+                                                            style: kSubtitleTextStyle
+                                                                .copyWith(
+                                                                    color:
+                                                                        kSecondaryColor),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      child: Text(
+                                                      Text(
                                                         state.service[index]
-                                                            .location
+                                                            .serialnumber
                                                             .toString()
                                                             .toUpperCase(),
-                                                        style: kHeading3TextStyle
+                                                        style: kSubtitleTextStyle
                                                             .copyWith(
                                                                 color:
                                                                     kSecondaryColor),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                verticalSpaceMedium,
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Flexible(
-                                                      flex: 2,
-                                                      child: SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.8,
+                                                      Container(
+                                                        padding:
+                                                            kEdgeInsetsAllTiny,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: index.isEven
+                                                              ? kWhiteColor
+                                                              : kTertiaryColor5,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
+                                                        ),
                                                         child: Text(
-                                                          state
-                                                              .service[index].id
-                                                              .toString(),
-                                                          // .toUpperCase(),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style:
-                                                              kSubtitleTextStyle
-                                                                  .copyWith(
-                                                            color:
-                                                                kSecondaryColor,
+                                                          state.service[index]
+                                                              .location
+                                                              .toString()
+                                                              .toUpperCase(),
+                                                          style: kHeading3TextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kSecondaryColor),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  verticalSpaceMedium,
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 2,
+                                                        child: SizedBox(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.8,
+                                                          child: Text(
+                                                            state.service[index]
+                                                                .id
+                                                                .toString(),
+                                                            // .toUpperCase(),
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style:
+                                                                kSubtitleTextStyle
+                                                                    .copyWith(
+                                                              color:
+                                                                  kSecondaryColor,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    BlocBuilder<HomeBloc,
-                                                        HomeState>(
-                                                      builder:
-                                                          (context, state) {
-                                                        if (state
-                                                            is HomeBlocFetchedState) {
-                                                          if (state.user.role ==
-                                                                  "admin" ||
-                                                              state.user.role ==
-                                                                  "subAdmin" ||
-                                                              state.user.role ==
-                                                                  "location") {
-                                                            return BlocBuilder<
-                                                                ServiceRequestBloc,
-                                                                ServiceRequestState>(
-                                                              builder: (context,
-                                                                  state) {
-                                                                if (state
-                                                                    is ServiceRequestFetched) {
-                                                                  return state.service[index].locationapprovedate ==
-                                                                          ""
-                                                                      ? state.service[index].requestacknowledgedate ==
-                                                                              ""
-                                                                          ? SizedBox(
-                                                                              child: Row(
-                                                                                children: [
-                                                                                  const Icon(
-                                                                                    Icons.hourglass_empty,
-                                                                                    color: Colors.amber,
-                                                                                  ),
-                                                                                  horizontalSpaceTiny,
-                                                                                  Text(
-                                                                                    "Wating",
-                                                                                    style: kSubtitleTextStyle,
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            )
-                                                                          : state.service[index].requestclosedate == ""
-                                                                              ? SizedBox(
-                                                                                  child: Row(
-                                                                                    children: [
-                                                                                      Icon(
-                                                                                        Icons.access_time,
-                                                                                        color: Colors.deepOrangeAccent.shade400,
-                                                                                      ),
-                                                                                      horizontalSpaceTiny,
-                                                                                      Text(
-                                                                                        "Inprogress",
-                                                                                        style: kSubtitleTextStyle,
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                )
-                                                                              : SizedBox(
-                                                                                  child: ElevatedButton(
-                                                                                    onPressed: () {
-                                                                                      context.read<ServiceRequestBloc>().add(ServiceRequestEventUpdate(state.service[index].copyWith(
-                                                                                            locationapprovedate: formattedDate,
-                                                                                            locationapprovetime: formattedTime,
-                                                                                          )));
-                                                                                    },
-                                                                                    child: const Text(
-                                                                                      "Approve",
-                                                                                    ),
-                                                                                  ),
-                                                                                )
-                                                                      : SizedBox(
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              const Icon(
-                                                                                Icons.done_all,
-                                                                                color: Colors.green,
-                                                                              ),
-                                                                              horizontalSpaceTiny,
-                                                                              Text(
-                                                                                "Completed",
-                                                                                style: kSubtitleRegularTextStyle,
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        );
-                                                                }
-                                                                return SizedBox(
-                                                                  child: Text(
-                                                                    "Error",
-                                                                    style:
-                                                                        kSubtitleRegularTextStyle,
-                                                                  ),
-                                                                );
-                                                              },
-                                                            );
-                                                          } else if (state
-                                                                  .user.role ==
-                                                              "vendor") {
-                                                            return BlocBuilder<
-                                                                ServiceRequestBloc,
-                                                                ServiceRequestState>(
-                                                              builder: (context,
-                                                                  state) {
-                                                                if (state
-                                                                    is ServiceRequestFetched) {
-                                                                  return SizedBox(
-                                                                    child: state.service[index].requestacknowledgedate ==
+                                                      BlocBuilder<HomeBloc,
+                                                          HomeState>(
+                                                        builder:
+                                                            (context, state) {
+                                                          if (state
+                                                              is HomeBlocFetchedState) {
+                                                            if (state.user
+                                                                        .role ==
+                                                                    "admin" ||
+                                                                state.user
+                                                                        .role ==
+                                                                    "subAdmin" ||
+                                                                state.user
+                                                                        .role ==
+                                                                    "location") {
+                                                              return BlocBuilder<
+                                                                  ServiceRequestBloc,
+                                                                  ServiceRequestState>(
+                                                                builder:
+                                                                    (context,
+                                                                        state) {
+                                                                  if (state
+                                                                      is ServiceRequestFetched) {
+                                                                    return state.service[index].locationapprovedate ==
                                                                             ""
-                                                                        ? ElevatedButton(
-                                                                            style:
-                                                                                ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor2)),
-                                                                            onPressed:
-                                                                                () {
-                                                                              context.read<ServiceRequestBloc>().add(ServiceRequestEventUpdate(state.service[index].copyWith(
-                                                                                    requestacknowledgedate: formattedDate,
-                                                                                    requestacknowledgetime: formattedTime,
-                                                                                  )));
-                                                                            },
-                                                                            child:
-                                                                                const Text('Acknowledge'),
-                                                                          )
-                                                                        : state.service[index].requestclosedate ==
+                                                                        ? state.service[index].requestacknowledgedate ==
                                                                                 ""
-                                                                            ? ElevatedButton(
-                                                                                style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(kTertiaryColor2)),
-                                                                                onPressed: () {
-                                                                                  context.read<ServiceRequestBloc>().add(ServiceRequestEventUpdate(state.service[index].copyWith(
-                                                                                        requestclosedate: formattedDate,
-                                                                                        requestclosetime: formattedTime,
-                                                                                      )));
-                                                                                },
-                                                                                child: const Text('Close Request'),
+                                                                            ? SizedBox(
+                                                                                child: Row(
+                                                                                  children: [
+                                                                                    const Icon(
+                                                                                      Icons.hourglass_empty,
+                                                                                      color: Colors.amber,
+                                                                                    ),
+                                                                                    horizontalSpaceTiny,
+                                                                                    Text(
+                                                                                      "Wating",
+                                                                                      style: kSubtitleTextStyle,
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
                                                                               )
-                                                                            : state.service[index].locationapprovedate == ""
+                                                                            : state.service[index].requestclosedate == ""
                                                                                 ? SizedBox(
-                                                                                    child: Text(
-                                                                                      "Wating to Approve",
-                                                                                      style: kSubtitleRegularTextStyle,
+                                                                                    child: Row(
+                                                                                      children: [
+                                                                                        Icon(
+                                                                                          Icons.access_time,
+                                                                                          color: Colors.deepOrangeAccent.shade400,
+                                                                                        ),
+                                                                                        horizontalSpaceTiny,
+                                                                                        Text(
+                                                                                          "Inprogress",
+                                                                                          style: kSubtitleTextStyle,
+                                                                                        ),
+                                                                                      ],
                                                                                     ),
                                                                                   )
                                                                                 : SizedBox(
-                                                                                    child: Text(
-                                                                                      "Done",
-                                                                                      style: kSubtitleRegularTextStyle,
+                                                                                    child: ElevatedButton(
+                                                                                      onPressed: () {
+                                                                                        context.read<ServiceRequestBloc>().add(ServiceRequestEventUpdate(state.service[index].copyWith(
+                                                                                              locationapprovedate: formattedDate,
+                                                                                              locationapprovetime: formattedTime,
+                                                                                            )));
+                                                                                      },
+                                                                                      child: const Text(
+                                                                                        "Approve",
+                                                                                      ),
                                                                                     ),
-                                                                                  ),
+                                                                                  )
+                                                                        : SizedBox(
+                                                                            child:
+                                                                                Row(
+                                                                              children: [
+                                                                                const Icon(
+                                                                                  Icons.done_all,
+                                                                                  color: Colors.green,
+                                                                                ),
+                                                                                horizontalSpaceTiny,
+                                                                                Text(
+                                                                                  "Completed",
+                                                                                  style: kSubtitleRegularTextStyle,
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          );
+                                                                  }
+                                                                  return SizedBox(
+                                                                    child: Text(
+                                                                      "Error",
+                                                                      style:
+                                                                          kSubtitleRegularTextStyle,
+                                                                    ),
                                                                   );
-                                                                } else {
-                                                                  print(
-                                                                      "Not Enter1");
-                                                                  return const SizedBox();
-                                                                }
-                                                              },
-                                                            );
+                                                                },
+                                                              );
+                                                            } else if (state
+                                                                    .user
+                                                                    .role ==
+                                                                "vendor") {
+                                                              return BlocBuilder<
+                                                                  ServiceRequestBloc,
+                                                                  ServiceRequestState>(
+                                                                builder:
+                                                                    (context,
+                                                                        state) {
+                                                                  if (state
+                                                                      is ServiceRequestFetched) {
+                                                                    return SizedBox(
+                                                                      child: state.service[index].requestacknowledgedate ==
+                                                                              ""
+                                                                          ? ElevatedButton(
+                                                                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor2)),
+                                                                              onPressed: () {
+                                                                                context.read<ServiceRequestBloc>().add(ServiceRequestEventUpdate(state.service[index].copyWith(
+                                                                                      requestacknowledgedate: formattedDate,
+                                                                                      requestacknowledgetime: formattedTime,
+                                                                                    )));
+                                                                              },
+                                                                              child: const Text('Acknowledge'),
+                                                                            )
+                                                                          : state.service[index].requestclosedate == ""
+                                                                              ? ElevatedButton(
+                                                                                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(kTertiaryColor2)),
+                                                                                  onPressed: () {
+                                                                                    Navigator.push(
+                                                                                      context,
+                                                                                      MaterialPageRoute(builder: (context) => CloseRequestPage(service: state.service[index])),
+                                                                                    );
+                                                                                  },
+                                                                                  child: const Text('Close Request'),
+                                                                                )
+                                                                              : state.service[index].locationapprovedate == ""
+                                                                                  ? SizedBox(
+                                                                                      child: Text(
+                                                                                        "Wating to Approve",
+                                                                                        style: kSubtitleRegularTextStyle,
+                                                                                      ),
+                                                                                    )
+                                                                                  : SizedBox(
+                                                                                      child: Text(
+                                                                                        "Done",
+                                                                                        style: kSubtitleRegularTextStyle,
+                                                                                      ),
+                                                                                    ),
+                                                                    );
+                                                                  } else {
+                                                                    print(
+                                                                        "Not Enter1");
+                                                                    return const SizedBox();
+                                                                  }
+                                                                },
+                                                              );
+                                                            } else {
+                                                              print(
+                                                                  "Not Enter2");
+                                                              return const SizedBox();
+                                                            }
                                                           } else {
-                                                            print("Not Enter2");
+                                                            print("Not Enter3");
                                                             return const SizedBox();
                                                           }
-                                                        } else {
-                                                          print("Not Enter3");
-                                                          return const SizedBox();
-                                                        }
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          verticalSpaceSmall
-                                        ],
-                                      ),
-                                    )
-                                  : Center(
-                                      child: Text(
-                                      "No Requests Found",
-                                      style: kSubtitleTextStyle,
-                                    ));
-                            },
-                          );
+                                            verticalSpaceSmall
+                                          ],
+                                        ),
+                                      )
+                                    : Center(
+                                        child: Text(
+                                        "No Requests Found",
+                                        style: kSubtitleTextStyle,
+                                      ));
+                              },
+                            );
+                          } else {
+                            return Center(
+                              child: Text(
+                                "No Request Found",
+                                style: kSubtitleRegularTextStyle,
+                              ),
+                            );
+                          }
                         } else {
                           return Center(
                             child: Text(

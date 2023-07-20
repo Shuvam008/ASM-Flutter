@@ -28,6 +28,7 @@ class Asset {
   String fund;
   String suppliermail;
   String supplierphonenumber;
+  bool isActive;
 
   Asset({
     required this.id,
@@ -49,6 +50,7 @@ class Asset {
     required this.fund,
     required this.suppliermail,
     required this.supplierphonenumber,
+    required this.isActive,
   });
 
   Asset copyWith({
@@ -71,6 +73,7 @@ class Asset {
     String? fund,
     String? suppliermail,
     String? supplierphonenumber,
+    bool? isActive,
   }) =>
       Asset(
         id: id ?? this.id,
@@ -92,6 +95,7 @@ class Asset {
         fund: fund ?? this.fund,
         suppliermail: suppliermail ?? this.suppliermail,
         supplierphonenumber: supplierphonenumber ?? this.supplierphonenumber,
+        isActive: isActive ?? this.isActive,
       );
 
   factory Asset.fromJson(Map<String, dynamic> json) => Asset(
@@ -114,6 +118,7 @@ class Asset {
         fund: json["fund"],
         suppliermail: json["suppliermail"],
         supplierphonenumber: json["supplierphonenumber"],
+        isActive: json["isActive"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -136,5 +141,6 @@ class Asset {
         "fund": fund,
         "suppliermail": suppliermail,
         "supplierphonenumber": supplierphonenumber,
+        "isActive": isActive,
       };
 }

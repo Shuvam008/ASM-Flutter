@@ -38,3 +38,11 @@ class ServiceRequestEventUpdate extends ServiceRequestEvent {
   @override
   List<Object> get props => [service];
 }
+
+class ServiceRequestEventClose extends ServiceRequestEvent {
+  final ServiceR service;
+
+  const ServiceRequestEventClose(this.service);
+  @override
+  List<Object> get props => [service];
+}

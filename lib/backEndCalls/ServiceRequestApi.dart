@@ -28,7 +28,7 @@ class ServiceRequestApi {
   static const apiUrl = 'http://192.168.1.11:8080/services';
   // static const apiUrl = 'http://localhost:8080/assets';
 
-  static Future<List<ServiceR>?> getServiceRequests(
+  static Future<List<ServiceR>> getServiceRequests(
       String role, String rolecode) async {
     var response = await http.get(Uri.parse(apiUrl));
 
@@ -50,7 +50,7 @@ class ServiceRequestApi {
         if (serviceRequestLocation.isNotEmpty) {
           return serviceRequestLocation;
         }
-        return null;
+        return [];
       } else {
         List<ServiceR> serviceRequestVendor = [];
         for (var i = 0; i < serviceRequest.length; i++) {
@@ -61,10 +61,10 @@ class ServiceRequestApi {
         if (serviceRequestVendor.isNotEmpty) {
           return serviceRequestVendor;
         }
-        return null;
+        return [];
       }
     } else {
-      return null;
+      return [];
     }
   }
 

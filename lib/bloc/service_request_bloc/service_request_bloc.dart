@@ -14,8 +14,8 @@ class ServiceRequestBloc
         await ServiceRequestApi.getServiceRequests(event.role, event.rolecode)
             .then((value) async {
           if (value != null) {
-            emit(ServiceRequestLoding());
-            await Future.delayed(const Duration(milliseconds: 500));
+            // emit(ServiceRequestLoding());
+            // await Future.delayed(const Duration(milliseconds: 500));
 
             emit(ServiceRequestFetched(value));
             print("object");
@@ -76,6 +76,29 @@ class ServiceRequestBloc
             .then((value) {
           if (value == 'successfullyUpdateService') {
             emit(ServiceRequestUpdate());
+            print(value.toString());
+            print("dfdfd");
+          } else {
+            emit(const ServiceRequestError("Error"));
+            print(value);
+            // emit();
+          }
+        });
+      } catch (e) {
+        emit(ServiceRequestLoding());
+        Future.delayed(const Duration(milliseconds: 500));
+        emit(ServiceRequestError(e.toString()));
+        print(e);
+        // emit();
+      }
+    });
+
+    on<ServiceRequestEventClose>((event, emit) async {
+      try {
+        await ServiceRequestApi.updateserviceRequests(event.service)
+            .then((value) {
+          if (value == 'successfullyUpdateService') {
+            emit(ServiceRequestClosed());
             print(value.toString());
             print("dfdfd");
           } else {

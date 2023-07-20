@@ -677,6 +677,7 @@ class _UpdateAssetPageState extends State<UpdateAssetPage> {
                                     suppliermail: suppliermailController.text,
                                     supplierphonenumber:
                                         supplierphonenumberController.text,
+                                    isActive: true,
                                   );
                                   // print(asset.toJson().toString());
                                   // print(widget.asset.toJson().toString());

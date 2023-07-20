@@ -642,6 +642,7 @@ class _CreateAssetPageState extends State<CreateAssetPage> {
                                     suppliermail: suppliermailController.text,
                                     supplierphonenumber:
                                         supplierphonenumberController.text,
+                                    isActive: true,
                                   );
 
                                   context
